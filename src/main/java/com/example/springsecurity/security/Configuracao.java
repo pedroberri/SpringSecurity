@@ -17,18 +17,18 @@ import java.util.List;
 @Configuration
 public class Configuracao {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        UserDetails user1 = User.builder()
-                .username("teste1")
-                .password(encoder.encode("123"))
-                .build();
-        UserDetails user2 = User.builder()
-                .username("teste2")
-                .password(encoder.encode("321"))
-                .build();
-        return new InMemoryUserDetailsManager(List.of(user1, user2));
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//        UserDetails user1 = User.builder()
+//                .username("teste1")
+//                .password(encoder.encode("123"))
+//                .build();
+//        UserDetails user2 = User.builder()
+//                .username("teste2")
+//                .password(encoder.encode("321"))
+//                .build();
+//        return new InMemoryUserDetailsManager(List.of(user1, user2));
+//    }
 
 }

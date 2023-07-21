@@ -1,4 +1,4 @@
-package com.example.springsecurity;
+package com.example.springsecurity.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
