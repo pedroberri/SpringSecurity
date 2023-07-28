@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -39,19 +40,19 @@ public class Configuracao {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(a -> a
-                .requestMatchers(HttpMethod.GET, "/teste/1").permitAll()
-                .requestMatchers(HttpMethod.GET, "/teste/2").authenticated()
-                .anyRequest().authenticated());
-        http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                .requestMatchers(HttpMethod.GET, "/teste").authenticated()
+                .anyRequest().permitAll());
+        http.formLogin(a -> a
                 .loginPage("/login")
                 .permitAll());
+        http.csrf().disable();
         return http.build();
     }
-//
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration ac) throws Exception {
-//        return ac.getAuthenticationManager();
-//    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration ac) throws Exception {
+        return ac.getAuthenticationManager();
+    }
 
 //    @Bean
 //    public UserDetailsService userDetailsService() {
