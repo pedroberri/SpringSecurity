@@ -22,9 +22,15 @@ public class TesteController {
         return ResponseEntity.ok(usuarioRepository.save(usuario));
     }
 
-    @GetMapping
-    public ResponseEntity<String> get() {
-        return ResponseEntity.ok("Acessou");
+    @GetMapping("/1")
+    public ResponseEntity<String> get1() {
+        return ResponseEntity.ok("1");
     }
+
+    @GetMapping("/2")
+    public ResponseEntity<String> get2() {
+        return ResponseEntity.ok("2");
+    }
+
 
 }

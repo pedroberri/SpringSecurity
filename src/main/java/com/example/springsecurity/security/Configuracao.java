@@ -39,8 +39,12 @@ public class Configuracao {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(a -> a
-                .requestMatchers(HttpMethod.GET, "/teste").permitAll()
+                .requestMatchers(HttpMethod.GET, "/teste/1").permitAll()
+                .requestMatchers(HttpMethod.GET, "/teste/2").authenticated()
                 .anyRequest().authenticated());
+        http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                .loginPage("/login")
+                .permitAll());
         return http.build();
     }
 //
