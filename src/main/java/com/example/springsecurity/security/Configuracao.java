@@ -42,9 +42,7 @@ public class Configuracao {
         http.authorizeHttpRequests(a -> a
                 .requestMatchers(HttpMethod.GET, "/teste").authenticated()
                 .anyRequest().permitAll());
-        http.formLogin(a -> a
-                .loginPage("/login")
-                .permitAll());
+//        http.formLogin().loginPage("paginaLoginNoStatic").permitAll();
         http.csrf().disable();
         return http.build();
     }

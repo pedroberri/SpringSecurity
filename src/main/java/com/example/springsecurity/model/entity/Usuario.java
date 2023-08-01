@@ -1,9 +1,6 @@
 package com.example.springsecurity.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,11 +19,10 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
-
     private String password;
 
-    private String nome;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Pessoa pessoa;
 
     private List<GrantedAuthority> authorities;
 
@@ -37,4 +33,14 @@ public class Usuario implements UserDetails {
     private boolean credentialsNonExpired;
 
     private boolean enabled;
+
+    @Override
+    public String getUsername() {
+        return pessoa.getNome();
+    }
+
+    @Override
+    public String getPassword() {
+        return pessoa.getSenha();
+    }
 }
