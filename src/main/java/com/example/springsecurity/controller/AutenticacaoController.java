@@ -1,6 +1,9 @@
 package com.example.springsecurity.controller;
 
 import com.example.springsecurity.model.entity.Login;
+import com.example.springsecurity.model.entity.Usuario;
+import com.example.springsecurity.security.util.CookieUtil;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -36,9 +39,11 @@ public class AutenticacaoController {
                         login.getUsername(), login.getPassword());
         Authentication authentication = authenticationManager.authenticate(token);
         if (authentication.isAuthenticated()) {
-            SecurityContext context = SecurityContextHolder.createEmptyContext();
-            context.setAuthentication(authentication);
-            securityContextRepository.saveContext(context, request, response);
+            Cookie cookie = CookieUtil.gerarCookie((Usuario) authentication.getPrincipal());
+            response.addCookie(cookie);
+//            SecurityContext context = SecurityContextHolder.createEmptyContext();
+//            context.setAuthentication(authentication);
+//            securityContextRepository.saveContext(context, request, response);
             return ResponseEntity.ok(authentication.getPrincipal());
         }
         return ResponseEntity.status(401).build();
