@@ -41,9 +41,6 @@ public class AutenticacaoController {
         if (authentication.isAuthenticated()) {
             Cookie cookie = CookieUtil.gerarCookie((Usuario) authentication.getPrincipal());
             response.addCookie(cookie);
-//            SecurityContext context = SecurityContextHolder.createEmptyContext();
-//            context.setAuthentication(authentication);
-//            securityContextRepository.saveContext(context, request, response);
             return ResponseEntity.ok(authentication.getPrincipal());
         }
         return ResponseEntity.status(401).build();

@@ -15,12 +15,12 @@ public class TesteController {
 
     private UsuarioRepository usuarioRepository;
 
-    @PostMapping
-    public ResponseEntity<Usuario> post(@RequestBody Usuario usuario) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        usuario.getPessoa().setSenha(encoder.encode(usuario.getPassword()));
-        return ResponseEntity.ok(usuarioRepository.save(usuario));
-    }
+//    @PostMapping
+//    public ResponseEntity<Usuario> post(@RequestBody Usuario usuario) {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        usuario.getPessoa().setSenha(encoder.encode(usuario.getPassword()));
+//        return ResponseEntity.ok(usuarioRepository.save(usuario));
+//    }
 
     @GetMapping
     public ResponseEntity<String> get1() {

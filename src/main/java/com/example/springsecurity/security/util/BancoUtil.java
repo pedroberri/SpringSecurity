@@ -22,7 +22,7 @@ public class BancoUtil {
 
         Pessoa pessoa = new Pessoa();
         pessoa.setCpf(12345678900L);
-        pessoa.setNome("Administrador");
+        pessoa.setNome("Admin");
         pessoa.setSobrenome("do Sistema");
         pessoa.setEmail("adminstrador@gmail.com");
         pessoa.setSenha(new BCryptPasswordEncoder().encode("MI71"));
