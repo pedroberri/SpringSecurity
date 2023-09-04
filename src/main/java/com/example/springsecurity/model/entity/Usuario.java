@@ -1,5 +1,6 @@
 package com.example.springsecurity.model.entity;
 
+import com.example.springsecurity.model.enums.Perfil;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,12 +20,10 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String password;
-
     @OneToOne(cascade = CascadeType.ALL)
     private Pessoa pessoa;
 
-    private List<GrantedAuthority> authorities;
+    private List<Perfil> authorities;
 
     private boolean accountNonExpired;
 

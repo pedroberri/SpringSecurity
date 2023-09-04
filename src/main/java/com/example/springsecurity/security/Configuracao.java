@@ -9,9 +9,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +33,7 @@ import java.util.List;
 @EnableWebSecurity
 @Configuration
 @AllArgsConstructor
+//@EnableMethodSecurity
 public class Configuracao {
 
     private final JpaService jpaService;
@@ -42,11 +46,13 @@ public class Configuracao {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(a -> a
-                .requestMatchers(HttpMethod.GET, "/teste").authenticated()
+                .requestMatchers(HttpMethod.GET, "/autenticado").authenticated()
+                .requestMatchers(HttpMethod.GET, "/autenticado/admin").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/autenticado/vendedor").hasAuthority("VENDEDOR")
+                .requestMatchers(HttpMethod.GET, "/autenticado/cliente").hasAuthority("CLIENTE")
                 .anyRequest().permitAll());
-//        http.formLogin().loginPage("paginaLoginNoStatic").permitAll();
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf(AbstractHttpConfigurer::disable);
+        http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(new Filtro(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

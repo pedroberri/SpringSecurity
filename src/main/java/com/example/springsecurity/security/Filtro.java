@@ -42,6 +42,6 @@ public class Filtro extends OncePerRequestFilter {
     }
 
     private boolean rotaPrivada(String url) {
-        return url.startsWith("/teste");
+        return url.startsWith("/autenticado");
     }
 }

@@ -33,16 +33,18 @@ public class AutenticacaoController {
             @RequestBody Login login,
             HttpServletRequest request,
             HttpServletResponse response ) {
-        SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(
                         login.getUsername(), login.getPassword());
+
         Authentication authentication = authenticationManager.authenticate(token);
         if (authentication.isAuthenticated()) {
             Cookie cookie = CookieUtil.gerarCookie((Usuario) authentication.getPrincipal());
             response.addCookie(cookie);
             return ResponseEntity.ok(authentication.getPrincipal());
         }
+
         return ResponseEntity.status(401).build();
     }
 
