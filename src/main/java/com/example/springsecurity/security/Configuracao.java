@@ -51,6 +51,7 @@ public class Configuracao {
                 .requestMatchers(HttpMethod.GET, "/autenticado/vendedor").hasAuthority("VENDEDOR")
                 .requestMatchers(HttpMethod.GET, "/autenticado/cliente").hasAuthority("CLIENTE")
                 .anyRequest().permitAll());
+//        http.formLogin(AbstractAuthenticationFilterConfigurer::disable);
         http.csrf(AbstractHttpConfigurer::disable);
         http.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(new Filtro(), UsernamePasswordAuthenticationFilter.class);
